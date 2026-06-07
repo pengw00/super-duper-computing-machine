@@ -182,12 +182,12 @@ def main():
     print(f"TinyGPT logits: {logits.shape}")   # (4, 16, 65)
 
     # --- One gradient update ---
-    optimiser = torch.optim.AdamW(model.parameters(), lr=3e-4)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=3e-4)
     targets   = ids[:, 1:].contiguous()          # predict next token
     preds     = logits[:, :-1, :].contiguous()
     loss = F.cross_entropy(preds.view(-1, VOCAB), targets.view(-1))
     loss.backward()
-    optimiser.step()
+    optimizer.step()
     print(f"Loss after one step: {loss.item():.4f}")
 
     # --- Greedy generation ---

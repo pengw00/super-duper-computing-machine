@@ -1,7 +1,7 @@
 """
 04 - Full Training Loop
 ========================
-Putting it all together: dataset, dataloader, model, optimiser, and the
+Putting it all together: dataset, dataloader, model, optimizer, and the
 classic train / evaluate cycle.  We train a small MLP on the MNIST
 handwritten-digit dataset.
 
@@ -65,7 +65,7 @@ print(model)
 # ------------------------------------------------------------------
 # 3. Optimiser and loss
 # ------------------------------------------------------------------
-optimiser = torch.optim.Adam(model.parameters(), lr=1e-3)
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 criterion = nn.CrossEntropyLoss()
 
 # ------------------------------------------------------------------
@@ -78,11 +78,11 @@ def train_one_epoch(epoch: int) -> float:
     for batch_idx, (images, labels) in enumerate(train_loader):
         images, labels = images.to(device), labels.to(device)
 
-        optimiser.zero_grad()           # 1. reset gradients
+        optimizer.zero_grad()           # 1. reset gradients
         logits = model(images)          # 2. forward pass
         loss = criterion(logits, labels)# 3. compute loss
         loss.backward()                 # 4. backward pass
-        optimiser.step()                # 5. update weights
+        optimizer.step()                # 5. update weights
 
         total_loss += loss.item()
     return total_loss / len(train_loader)
